@@ -9,6 +9,7 @@ type Config struct {
 	XMLName      xml.Name `xml:"Config"`
 	Port         string   `xml:"Port"`
 	ShutdownWait int      `xml:"ShutdownWait"`
+	TCPPort      string   `xml:"TCPPort"`
 }
 
 func CommandSetter(commandName string, act func()) {
