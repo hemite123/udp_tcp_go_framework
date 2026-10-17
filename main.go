@@ -36,9 +36,10 @@ func main() {
 	if _err != nil {
 		fmt.Println(_err.Error())
 	}
+	WebService.StartWebService(*&liternerTCP)
 	defer liternerTCP.Close()
 	fmt.Println("Start TCP Server On Port ", *&model.LoadConfig.TCPPort)
-	WebService.StartWebService(*liternerTCP)
+
 	//END Listerner TCP
 
 	//Package Capture
