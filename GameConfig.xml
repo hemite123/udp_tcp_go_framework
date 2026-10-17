@@ -1,4 +1,5 @@
 <Config>
     <Port>:3000</Port>
     <ShutdownWait>30</ShutdownWait>
+    <TCPPort>:8080</TCPPort>
 </Config>
