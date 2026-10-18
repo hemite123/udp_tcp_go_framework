@@ -74,7 +74,7 @@ func RestartWebService() {
 		router.Use(gin.Recovery())
 
 		router.GET("/ping", func(c *gin.Context) {
-			c.JSON(http.StatusOK, gin.H{"message": "Server Is Restarted)"})
+			c.JSON(http.StatusOK, gin.H{"message": "Server Is Restarted " + time.Now().String()})
 		})
 
 		mu.Lock()

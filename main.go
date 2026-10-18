@@ -49,12 +49,11 @@ func main() {
 				fmt.Println(_err.Error())
 				continue
 			}
-			fmt.Println("Got Message from %s: %s\n", ClientAddr, string(buffer[:n]))
-
-			_, _err = lister.WriteToUDP(buffer[:n], ClientAddr)
-			if _err != nil {
-				fmt.Println(_err.Error())
+			//Check If Is Start To Connect Or Do Action
+			if add := model.AddNewConnection(*ClientAddr); add {
+				fmt.Printf("\033[1A\r\nNew Client Connection From %s\n>", ClientAddr.IP)
 			}
+			fmt.Printf("\033[1A\r\nGot Message from %s: %s\n>", ClientAddr, string(buffer[:n]))
 		}
 	}()
 

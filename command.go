@@ -18,6 +18,7 @@ func MessageCapture(message string) (string, error) {
 		return "", nil
 	}
 	return "Message Return", errors.New("Error Code 100")
+	//send message to client
 }
 
 func init() {
@@ -25,4 +26,8 @@ func init() {
 	model.CommandSetter("shutdown", CommandControler.Shutdown)
 	model.CommandSetter("reload", func() { CommandControler.ReloadConfig(false) })
 	model.CommandSetter("webreload", CommandControler.RestarWebServices)
+}
+
+func BroadcastClient() {
+
 }
