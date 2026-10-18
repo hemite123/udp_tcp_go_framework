@@ -3,6 +3,7 @@ package CommandControler
 import (
 	"encoding/xml"
 	"fmt"
+	"gameserver/WebService"
 	"gameserver/model"
 	"os"
 	"time"
@@ -11,7 +12,7 @@ import (
 func Shutdown() {
 	defer func() {
 		if r := recover(); r != nil {
-			fmt.Printf("\033[1A\r\nRecovered from panic in shutdown command:", r)
+			fmt.Printf("\033[1A\r\nRecovered from panic in shutdown command: %s \n>", r)
 		}
 	}()
 	shutdownDuration := time.Duration(*&model.LoadConfig.ShutdownWait) * time.Second
@@ -21,7 +22,7 @@ func Shutdown() {
 	go func() {
 		defer func() {
 			if r := recover(); r != nil {
-				fmt.Printf("\033[1A\r\nRecovered from panic in shutdown GoRoutine Timer:", r)
+				fmt.Printf("\033[1A\r\nRecovered from panic in shutdown GoRoutine Timer: %s \n>", r)
 			}
 		}()
 		for {
@@ -44,7 +45,7 @@ func Shutdown() {
 func ReloadConfig(firstLoad bool) {
 	defer func() {
 		if r := recover(); r != nil {
-			fmt.Printf("\033[1A\r\nRecovered from panic in Reload Config:", r)
+			fmt.Printf("\033[1A\r\nRecovered from panic in Reload Config: %s \n>", r)
 		}
 	}()
 	file, _err := os.Open("GameConfig.xml")
@@ -58,4 +59,13 @@ func ReloadConfig(firstLoad bool) {
 	if !firstLoad {
 		fmt.Printf("\033[1A\r\nConfig Reloaded\n")
 	}
+}
+
+func RestarWebServices() {
+	defer func() {
+		if r := recover(); r != nil {
+			fmt.Printf("\033[1A\r\nRecovered from panic in Restart Web Service: %s \n>", r)
+		}
+	}()
+	WebService.RestartWebService()
 }
