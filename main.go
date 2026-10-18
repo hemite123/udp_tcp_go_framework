@@ -23,7 +23,6 @@ func main() {
 	if _err != nil {
 		fmt.Println(_err.Error())
 	}
-	defer lister.Close()
 	fmt.Println("Start Game Server From Port ", *&model.LoadConfig.Port)
 	//End Listener
 
@@ -37,7 +36,6 @@ func main() {
 		fmt.Println(_err.Error())
 	}
 	WebService.StartWebService(*&liternerTCP)
-	defer liternerTCP.Close()
 	fmt.Println("Start TCP Server On Port ", *&model.LoadConfig.TCPPort)
 
 	//END Listerner TCP
@@ -64,7 +62,7 @@ func main() {
 
 	//Server Command Execution
 	for {
-		fmt.Printf(">")
+		fmt.Printf("> ")
 		fmt.Scan(&Command)
 		result, _err := MessageCapture(Command)
 		if _err != nil {

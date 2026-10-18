@@ -1,6 +1,8 @@
 package model
 
-import "encoding/xml"
+import (
+	"encoding/xml"
+)
 
 var ListCommand = make(map[string]func())
 var LoadConfig Config
