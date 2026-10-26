@@ -3,8 +3,8 @@ package CommandControler
 import (
 	"encoding/xml"
 	"fmt"
-	"gameserver/WebService"
 	"gameserver/model"
+	"net/http"
 	"os"
 	"time"
 )
@@ -64,8 +64,23 @@ func ReloadConfig(firstLoad bool) {
 func RestarWebServices() {
 	defer func() {
 		if r := recover(); r != nil {
-			fmt.Printf("\033[1A\r\nRecovered from panic in Restart Web Service: %s \n>", r)
+			fmt.Printf("\033[1A\r\nRecovered from panic in Restart Web Service: %s \n", r)
 		}
 	}()
-	WebService.RestartWebService()
+	url := "http://localhost" + model.LoadConfig.TCPPort + "/restartWebService"
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		fmt.Printf("\033[1A\r\nError Request To Webservice: %s \n", err.Error())
+	}
+	req.Header.Set("cred", "AA")
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		fmt.Printf("\033[1A\r\nError Hit EndPoint: %s \n", err.Error())
+	}
+	defer resp.Body.Close()
+	if resp.Status == "200 OK" {
+		fmt.Printf("\033[1A\r\nRestarted WebService \n")
+	}
+
 }

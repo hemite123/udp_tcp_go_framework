@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"gameserver/CommandControler"
-	"gameserver/WebService"
 	"gameserver/model"
 	"net"
 )
@@ -25,20 +24,6 @@ func main() {
 	}
 	fmt.Println("Start Game Server From Port ", *&model.LoadConfig.Port)
 	//End Listener
-
-	//Listener TCP
-	tcpAddr, _err := net.ResolveTCPAddr("tcp", *&model.LoadConfig.TCPPort)
-	if _err != nil {
-		fmt.Println(_err.Error())
-	}
-	liternerTCP, _err := net.ListenTCP("tcp", tcpAddr)
-	if _err != nil {
-		fmt.Println(_err.Error())
-	}
-	WebService.StartWebService(*&liternerTCP)
-	fmt.Println("Start TCP Server On Port ", *&model.LoadConfig.TCPPort)
-
-	//END Listerner TCP
 
 	//Package Capture
 	go func() {
